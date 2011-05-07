@@ -6,3 +6,4 @@ data/*
 .rvmrc
 db/schema.rb
 nbproject
+db/fixtures/*
