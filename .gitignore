@@ -4,3 +4,4 @@ config/database.yml
 config/deploy.rb
 data/*
 .rvmrc
+db/schema.rb
