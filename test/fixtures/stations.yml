@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  city: 
+  name: MyString
+  permalink: MyString
+  code: 1
+  alt_code: 1
+
+two:
+  city: 
+  name: MyString
+  permalink: MyString
+  code: 1
+  alt_code: 1
