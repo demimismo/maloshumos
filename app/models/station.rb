@@ -2,7 +2,7 @@ class Station < ActiveRecord::Base
   belongs_to :city
   has_slug :source_column => :name, :slug_column => :permalink, :prepend_id => false, :sync_slug => true
 
-  before_create :convert_coordinates
+  before_save :convert_coordinates
 
   def convert_coordinates
     min_latitude = self.latitude.match(/([0-9,]{1,5})º\s?([0-9,]{1,5})'\s?([0-9,]{1,5})''.*/)
