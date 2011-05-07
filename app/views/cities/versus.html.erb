@@ -1,0 +1,24 @@
+<div id="versus" class="estirar">
+
+  <h2><%= link_to @city1.name, city_path(@city1) %> vs. <%= link_to @city2.name, city_path(@city2) %></h2>
+
+  <div id="c1">
+    <div id="container"></div>
+    <%= render :partial => 'datatable', :locals => { :table_id => 'datatable', :city => @city1 } %>
+  </div>
+
+  <div id="c2">
+      <div id="container2"></div>
+      <%= render :partial => 'datatable', :locals => { :table_id => 'datatable2', :city => @city2 } %>
+  </div>
+
+  
+
+  <script type="text/javascript">
+  <%= render :partial => 'pie_chart.js.erb', :locals => { :table_id => 'datatable', :render_to => 'container' } %>
+  </script>
+  <script type="text/javascript">
+  <%= render :partial => 'pie_chart.js.erb', :locals => { :table_id => 'datatable2', :render_to => 'container2' } %>
+  </script>
+
+</div>

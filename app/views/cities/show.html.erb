@@ -1,0 +1,9 @@
+<h2><%= @city.name -%></h2>
+
+<ul>
+<% @city.stations.each do |station| -%>
+  <li><%= link_to station.name, url_for([@city, station]) -%>
+  (<%= station.measurements.latest_for_parameter(12).first.reading rescue '-' %>)</li>
+<% end -%>
+</ul>
+
