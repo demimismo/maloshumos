@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  station: 
+  parameter: 1
+  measured_at: 2011-05-07 09:26:32
+  reading: 1.5
+  analytical_technique: 1
+
+two:
+  station: 
+  parameter: 1
+  measured_at: 2011-05-07 09:26:32
+  reading: 1.5
+  analytical_technique: 1
