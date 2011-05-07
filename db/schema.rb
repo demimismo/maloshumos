@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(:version => 20110507075242) do
     t.integer  "alt_code"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "destroyed_at"
   end
 
 end
