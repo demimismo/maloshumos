@@ -1,0 +1,4 @@
+<h2><%= link_to @city.name, url_for([@city]) -%> > <%= @station.name -%></h2>
+
+<script type="text/javascript" src="<%= url_for([@city, @station, 'measurements'])+".js" -%>"></script>
+
