@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title><%= @page_title.reverse.join(' | ') %></title>
+    <meta name="robots" content="index, follow" />
+
+    <link rel="stylesheet" type="text/css" href="/stylesheets/default.css" media="screen" />
+  </head>
+
+
+<body>
+  <div id="head">
+    <h1><a href="/">Maloshumos</a></h1>
+  </div>
+
+  <div id="main_container">
+    <%= yield %>
+    <div id="map" style="width:100%; height:200px;"></div>
+  </div> 
+  <script type="text/javascript" src="https://www.google.com/jsapi?key=ABQIAAAA8IA-BjouWb_bx9zvm0DD9xT2yXp_ZAY8_ufC3CFXhHIE1NvwkxQv8Pp9wQ7UsCPb0KljklXXJ_BVHg" /></script>
+  <script type="text/javascript">
+    function mapsLoaded() {
+      console.log('a');
+      var map = new google.maps.Map2(document.getElementById("map"));
+      map.setCenter(new google.maps.LatLng(37.4419, -122.1419), 13);
+    }
+  </script>
+  <script type="text/javascript">
+    google.load("jquery", "1.6.0");
+    google.load("jqueryui", "1.7.2");
+    google.load("maps", "2", {"callback" : mapsLoaded});
+  </script>
+</body>
+</html>
+
