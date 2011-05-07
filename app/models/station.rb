@@ -20,7 +20,7 @@ class Station < ActiveRecord::Base
         end 
       end
 
-      self.latitude_decimal = aux
+      self.latitude_decimal = latitude
     end
 
     if !self.longitude.empty?
@@ -38,7 +38,7 @@ class Station < ActiveRecord::Base
         end 
       end
 
-      self.longitude_decimal = aux
+      self.longitude_decimal = longitude
     end
   end
 end
