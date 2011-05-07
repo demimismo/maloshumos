@@ -9,7 +9,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110507072632) do
+ActiveRecord::Schema.define(:version => 20110507075242) do
+
+  create_table "cities", :force => true do |t|
+    t.string   "name"
+    t.string   "permalink"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "measurements", :force => true do |t|
     t.integer  "station_id"
@@ -17,6 +24,16 @@ ActiveRecord::Schema.define(:version => 20110507072632) do
     t.datetime "measured_at"
     t.float    "reading"
     t.integer  "analytical_technique"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "stations", :force => true do |t|
+    t.integer  "city_id"
+    t.string   "name"
+    t.string   "permalink"
+    t.integer  "code"
+    t.integer  "alt_code"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
