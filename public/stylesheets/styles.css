@@ -1,0 +1,56 @@
+body {
+  background-color: #02B5CC;
+  font-family: helvetica,sans-serif;
+  font-size: x-small;
+  font-variant: normal;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1.5em;
+  color: #333;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: #0084B6;
+  text-decoration: none;
+}
+
+h2 {
+  font-family: Arial,sans-serif;
+  font-size: x-small;
+  font-variant: normal;
+  font-style: normal;
+  font-weight: normal;
+}
+
+.content {
+  overflow: hidden;
+}
+
+.wrapper {
+  width: 96em;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.wrapper .header {
+  background-color: #B1E0E8;
+}
+
+body.register .content .wrapper {
+  width: 46em;
+  padding: 5em 0;
+}
+
+body.login .content .wrapper {
+  padding: 5em 0;
+  width: 51.4em;
+}
+
+.accesible {
+    display: none;
+}

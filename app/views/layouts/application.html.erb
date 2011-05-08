@@ -6,7 +6,7 @@
     <title><%= @page_title.reverse.join(' | ') %></title>
     <meta name="robots" content="index, follow" />
 
-    <link rel="stylesheet" type="text/css" href="/stylesheets/default.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/styles.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="/stylesheets/jquery-ui-1.8.12.custom.css" media="screen" />
 		<script type="text/javascript" src="/javascripts/jquery-1.5.1.min.js"></script>
 		<script type="text/javascript" src="/javascripts/jquery-ui-1.8.12.custom.min.js"></script>
@@ -14,17 +14,20 @@
 
 
 <body>
-  <div id="head">
-    <h1><a href="/">Maloshumos</a></h1>
+
+  <div class="wrapper">
+    <div class="header">
+      <h1><a href="/">Maloshumos</a></h1>    
+    </div>  
+    <div class="content">
+      <%= yield %>
+      <div id="map" style="width:100%; height:200px;"></div>
+    </div> 
+    <div class="footer">
+      <script type="text/javascript" src="https://www.google.com/jsapi?key=<%= GOOGLE_LOADER_API_KEY -%>" /></script>    
+      <%= yield :js -%>
+    </div>
   </div>
-
-  <div id="main_container">
-    <%= yield %>
-    <div id="map" style="width:100%; height:200px;"></div>
-  </div> 
-  <script type="text/javascript" src="https://www.google.com/jsapi?key=<%= GOOGLE_LOADER_API_KEY -%>" /></script>
-
-  <%= yield :js -%>
 
 </body>
 </html>
