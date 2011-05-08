@@ -15,3 +15,26 @@
   </form>
 
 </div>
+
+
+
+<% content_for :outside_map do %>
+
+  <ul id="legend">
+    <li class="first"><%= image_tag 'ico-bueno.png' %> Bueno</li>
+    <li><%= image_tag 'ico-admisible.png' %> Admisible</li>
+    <li><%= image_tag 'ico-malo.png' %> Malo</li>
+    <li><%= image_tag 'ico-muymalo.png' %> Muy malo</li>
+    <li><%= image_tag 'ico-sindatos.png' %> Sin datos</li>
+  </ul>
+  
+  <select id="estaciones">
+    <option>Wadus</option>
+    <option>Wadus</option>
+    <option>Wadus</option>
+    <option>Wadus</option>
+    <option>Wadus</option>
+  </select>
+  
+  
+<% end %>

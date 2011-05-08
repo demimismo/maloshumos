@@ -28,6 +28,17 @@
         <!--<li><a href="#">Como te afecta</a></li>-->
         <!--<li class="last"><a href="#">Haz algo!</a></li>-->
       </ul>
+      
+      <% unless request.path == '/' %>
+      
+      <form class="buscador">
+        <label>Código postal</label>
+        <input type="text" class="text" />
+        <input type="submit" class="submit" />
+      </form>
+      
+      <% end %>
+      
     </div>
     
     
@@ -42,6 +53,10 @@
         
         <%= yield %>
       </div>
+      
+      <%= yield :outside_map %>
+      
+      
     </div>
     
     <div class="footer">

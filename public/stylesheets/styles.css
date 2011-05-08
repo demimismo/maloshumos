@@ -109,8 +109,62 @@ body.login .content .wrapper {
 }
 
 
+/** Buscador cabecera */
+#header .buscador {
+  border-bottom:4px solid #2a2f2d;
+  position:absolute;
+  right:0;
+  top:0;
+  z-index:1000;
+  background:url(../images/bg-buscador-top.png) repeat-x 0 0;
+  padding:11px 10px 8px;
+}
+#header .buscador label {
+  float:left;
+  font-size:1.8em;
+  font-weight:bold;
+  line-height:34px;
+  margin-right:15px;
+}
+#header .buscador .text {
+  float:left;
+  margin-right:9px;
+  background:#F1F4DE;
+  background:rgba(241, 244, 222, 0.50);
+  -webkit-box-shadow:0 0 4px rgba(0, 0, 0, 0.60) inset;
+     -moz-box-shadow:0 0 4px rgba(0, 0, 0, 0.60) inset;
+          box-shadow:0 0 4px rgba(0, 0, 0, 0.60) inset;
+  border:0;
+  font-size:1.6em;
+  padding:7px;
+  -webkit-border-radius: 3px;
+     -moz-border-radius: 3px;
+          border-radius: 3px;
+  color:#333;
+  width:110px;
+  
+}
+#header .buscador .submit {
+  float:left;
+  width:31px;
+  height:34px;
+  border:0;
+  background:url(../images/btn-buscar.png);
+  text-indent:-999px;
+}
+
+
+
+
+
+/* Common
+--------------------------------------------------------------------- */
+
+
 .content {
   position:relative;
+  border-bottom:10px solid #2a2f2d;
+  background:#fff;
 }
 
 .t {
@@ -138,7 +192,7 @@ body.login .content .wrapper {
   width:100%;
 }
 #map-layer #social {
-  margin:18px 10px 0 auto;
+  margin:35px 10px 0 auto;
   background:url(../images/bg-pasalo.png);
   width:63px;
   height:23px;
@@ -155,6 +209,10 @@ body.login .content .wrapper {
 
 /*  home
 --------------------------------------------------------------------- */
+#home #map-layer #social {
+  margin-top:18px;
+}
+
 
 #home-content {
   margin:20px auto 50px;
@@ -212,7 +270,33 @@ body.login .content .wrapper {
   background: linear-gradient(top, #FCFCFC 0%,#CACACA 100%); /* W3C */
 }
 
+#legend {
+  float:left;
+  list-style:none;
+  padding:15px 0;
+}
+#legend li {
+  float:left;
+  padding:0 10px 0 15px;
+  background:url(../images/legend-separator.png) no-repeat 0 center;
+  font-size:1.1em;
+  text-transform:uppercase;
+  color:#333;
+}
+#legend li.first {
+  background:none;
+}
+#legend img {
+  vertical-align:middle;
+  margin-right:8px;
+}
 
+
+#estaciones {
+  float:right;
+  margin:25px 15px 0;
+  width:250px;
+}
 
 
 
