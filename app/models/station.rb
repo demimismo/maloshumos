@@ -9,6 +9,14 @@ class Station < ActiveRecord::Base
 
   before_save :convert_coordinates
 
+
+  # El estado normalizado de una estación en un instante determinado
+  # es la media de los valores de los parámetros clave
+  def normalized_status(wadus = Time.now)
+    data = self.measurements.in_key_params.taken_at(wadus).map(&:normalized_reading)
+    data.sum/data.size rescue nil
+  end
+
   def convert_coordinates
     if !self.latitude.empty? 
       min_latitude = self.latitude.match(/([0-9,]{1,5})º\s?([0-9,]{1,5})'\s?([0-9,]{1,5})''.*/)
