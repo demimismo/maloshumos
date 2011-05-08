@@ -3,7 +3,6 @@
 <% content_for :js do -%>
   <script type="text/javascript">
     function mapsLoaded() {
-      console.log('a');
       var map = new google.maps.Map2(document.getElementById("map"));
       map.setCenter(new google.maps.LatLng(40.41831, -3.70275), 13);
       <% @stations.each do |station| -%>
@@ -17,6 +16,11 @@
           var polyline = new GPolyline([station_a, station_b], "#ff0000", 10);
     		  map.addOverlay(polyline);
       <% end %>
+      <% @destroyed_stations.each do |station| -%>
+          var station = new GLatLng(<%= station.latitude_decimal -%>, <%= station.longitude_decimal -%>);
+          var marker = new GMarker(station);
+          map.addOverlay(marker);
+      <% end -%>
     }
     google.load("maps", "2", {"callback" : mapsLoaded});
   </script>
