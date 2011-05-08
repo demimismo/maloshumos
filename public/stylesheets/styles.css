@@ -392,7 +392,7 @@ body.login .content .wrapper {
   background: linear-gradient(top, #FCFCFC 0%,#CACACA 100%); /* W3C */
 }
 
-h3 {
+div#wadus-content h3 {
   background:#ffce09 url(../images/bg-buscador-top.png) repeat-x;
   font-size: 22px;
   font-weight: bold;
