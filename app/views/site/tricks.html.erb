@@ -2,27 +2,41 @@
 
 <% content_for :js do -%>
   <script type="text/javascript">
-    function mapsLoaded() {
-      var map = new google.maps.Map2(document.getElementById("map"));
-      map.setCenter(new google.maps.LatLng(40.41831, -3.70275), 13);
-      <% @stations.each do |station| -%>
-          var station_a = new GLatLng(<%= station.latitude_decimal -%>, <%= station.longitude_decimal -%>);
-          var station_b = new GLatLng(<%= station.previous_station.latitude_decimal -%>, <%= station.previous_station.longitude_decimal -%>)
-
-          var marker = new GMarker(station_a);
-          map.addOverlay(marker);
-          var marker = new GMarker(station_b);
-          map.addOverlay(marker);
-          var polyline = new GPolyline([station_a, station_b], "#ff0000", 10);
-    		  map.addOverlay(polyline);
-      <% end %>
+     $(function(){
+      var map = new mxn.Mapstraction('map', 'google');
+      map.setCenterAndZoom(new mxn.LatLonPoint(40.41831, -3.70275), 14);
       <% @destroyed_stations.each do |station| -%>
-          var station = new GLatLng(<%= station.latitude_decimal -%>, <%= station.longitude_decimal -%>);
-          var marker = new GMarker(station);
-          map.addOverlay(marker);
+          var station = new mxn.LatLonPoint(<%= station.latitude_decimal -%>, <%= station.longitude_decimal -%>);
+          map.addMarkerWithData(new mxn.Marker(station),{
+            infoBubble : "<h2><%= station.name -%></h2>",
+            label : "<%= station.name -%>",
+            date : "new Date()",
+            marker : 4,
+            //iconShadow: "/images/ico-admisible.png",
+            //iconShadowSize : [45,45],
+            icon : "/images/ico-locked.png",
+            iconSize : [45,45],
+            draggable : false,
+            hover : false
+          });
       <% end -%>
-    }
-    google.load("maps", "2", {"callback" : mapsLoaded});
+      <% Station.active.each do |station| -%>
+          <%- next if station.latitude_decimal.blank? || station.longitude_decimal.blank? -%>
+          var station = new mxn.LatLonPoint(<%= station.latitude_decimal -%>, <%= station.longitude_decimal -%>);
+          map.addMarkerWithData(new mxn.Marker(station),{
+            infoBubble : "<h2><%= station.name -%></h2>",
+            label : "<%= station.name -%>",
+            date : "new Date()",
+            marker : 4,
+            //iconShadow: "/images/ico-admisible.png",
+            //iconShadowSize : [45,45],
+            icon : "/images/ico-unlocked.png",
+            iconSize : [45,45],
+            draggable : false,
+            hover : false
+          });
+      <% end -%>
+      map.autoCenterAndZoom();
+     });
   </script>
 <% end -%>
-
