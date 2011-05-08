@@ -1,0 +1,24 @@
+<h2>Mediciones trampa</h2>
+
+<% content_for :js do -%>
+  <script type="text/javascript">
+    function mapsLoaded() {
+      console.log('a');
+      var map = new google.maps.Map2(document.getElementById("map"));
+      map.setCenter(new google.maps.LatLng(40.41831, -3.70275), 13);
+      <% @stations.each do |station| -%>
+          var station_a = new GLatLng(<%= station.latitude_decimal -%>, <%= station.longitude_decimal -%>);
+          var station_b = new GLatLng(<%= station.previous_station.latitude_decimal -%>, <%= station.previous_station.longitude_decimal -%>)
+
+          var marker = new GMarker(station_a);
+          map.addOverlay(marker);
+          var marker = new GMarker(station_b);
+          map.addOverlay(marker);
+          var polyline = new GPolyline([station_a, station_b], "#ff0000", 10);
+    		  map.addOverlay(polyline);
+      <% end %>
+    }
+    google.load("maps", "2", {"callback" : mapsLoaded});
+  </script>
+<% end -%>
+

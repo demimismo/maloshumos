@@ -10,6 +10,9 @@ class SiteController < ApplicationController
     
   end
 
+  def tricks
+    @stations = Station.moved
+  end
 
   def sluggify(text)
     return nil if text.blank?
