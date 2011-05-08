@@ -10,7 +10,7 @@ ActionController::Routing::Routes.draw do |map|
     end
   end
 
-
+  map.resources :stations
 
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'

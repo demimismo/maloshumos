@@ -5,12 +5,13 @@
 
   <h2 class="t"><span>Estamos hartos de la contaminación madrileña y de datos manipulados sobre el estado de nuestro aire</span></h2>
 
-  <form class="buscador" action="">
-    <h3>Dinos cual es tu zona<br /> y sabrás lo que estás respirando</h3>
-    
-    <input type="text" class="text" placeholder="Tu código postal" />
-    <button type="submit">Voy a tener suerte</button>
-    
+     
+    <% form_tag(stations_path, :class=> 'buscador', :method => :get) do %>
+      <h3>Dinos cual es tu zona<br /> y sabrás lo que estás respirando</h3>
+      <%= text_field_tag 'postal_code', nil, :class=> "text", :placeholder => 'Tu código postal' %>
+      <button type="submit">Voy a tener suerte</button>
+    <% end %>
+        
   </form>
 
 </div>
