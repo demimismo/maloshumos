@@ -4,7 +4,6 @@
 <div id="home-content">
 
   <h2 class="t"><span>Estamos hartos de la contaminación madrileña y de datos manipulados sobre el estado de nuestro aire</span></h2>
-
      
     <% form_tag(stations_path, :class=> 'buscador', :method => :get) do %>
       <h3>Dinos cual es tu zona<br /> y sabrás lo que estás respirando</h3>
@@ -12,8 +11,6 @@
       <button type="submit">Voy a tener suerte</button>
     <% end %>
         
-  </form>
-
 </div>
 
 
@@ -27,7 +24,7 @@
     <li><%= image_tag 'ico-muymalo.png' %> Muy malo</li>
     <li><%= image_tag 'ico-sindatos.png' %> Sin datos</li>
   </ul>
-  
+<!--
   <select id="estaciones">
     <option>Wadus</option>
     <option>Wadus</option>
@@ -35,6 +32,32 @@
     <option>Wadus</option>
     <option>Wadus</option>
   </select>
-  
-  
+-->
 <% end %>
+
+<% content_for :js do -%>
+  <script type="text/javascript">
+     $(function(){
+        var map = new mxn.Mapstraction('map', 'google');
+        map.getMap();
+        var mapTypeControl = new GMapTypeControl();
+        var bottomRight = new GControlPosition(G_ANCHOR_BOTTOM_RIGHT, new GSize(10,20));
+        map.getMap().addControl(mapTypeControl, bottomRight);
+        var mapTypeControl = new GLargeMapControl();
+        var bottomLeft = new GControlPosition(G_ANCHOR_BOTTOM_RIGHT, new GSize(890,20));
+        map.getMap().addControl(mapTypeControl, bottomLeft);
+        <% Station.active.each do |station| -%>
+          <%- next if station.latitude_decimal.blank? || station.longitude_decimal.blank? -%>
+          maloshumos.infowindow({map: map,
+            title: "<%= station.name -%> ",
+            content: "<h2><%= station.name -%></h2>",
+            lat: <%= station.latitude_decimal -%>,
+            lng: <%= station.longitude_decimal -%>,
+            suffix: 'sindatos'
+          });
+        <% end -%>
+
+        map.setCenterAndZoom(new mxn.LatLonPoint(40.41831, -3.70275), 12);
+     });
+  </script>
+<% end -%>

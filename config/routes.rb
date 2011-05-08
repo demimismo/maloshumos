@@ -10,7 +10,7 @@ ActionController::Routing::Routes.draw do |map|
     end
   end
 
-  map.resources :stations
+  map.resources :stations, :as => 'estaciones', :collection => {:compare => :get}
 
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'

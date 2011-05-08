@@ -1,0 +1,76 @@
+<style type="text/css">
+  .ui-slider {
+    clear: both; margin: 2em 0 1em 2em;
+    width: 500px;
+  }
+</style>
+
+<% unless @station1 && @station2 %>
+  <div id="wadus-content">
+    <h2 class="t"><span>Compara el índice de contaminación del aire en distintas zonas de Madrid</span></h2>
+
+    <% form_tag stations_path, :method => :get do %>
+    <p>Compara contaminación entre:</p>
+      <p><%= select_tag 'station1', options_from_collection_for_select(@comparable_stations, :id, :name) %>
+      y <%= select_tag 'station2', options_from_collection_for_select(@comparable_stations, :id, :name) %></p>
+
+      <select id="date1" name="date1">
+        <% (0..13).each do |i| %>
+        <option value="<%= (Time.now - i.months).strftime('%m/%Y') %>"><%= (Time.now - i.months).strftime('%m %Y') %></option>
+        <% end %>
+      </select>
+
+      <select id="date2" name="date2">
+        <% (0..13).each do |i| %>
+        <option><%= (Time.now - i.months).strftime('%m %Y') %></option>
+        <% end %>
+      </select>
+      <button type="submit">Aplicar</button>
+    <% end %>
+  </div>
+
+<% else %>
+  <div id="placeholder"></div>
+  <% content_for :js do -%>
+    <script type="text/javascript" src="<%= url_for(@station1) %>.js"></script>
+    <script type="text/javascript" src="<%= url_for(@station2) %>.js"></script>
+    <script type="text/javascript">
+       var sin = [];
+       var cos = [];
+       var plot = $.plot($("#placeholder"),
+       [ { data: sin, label: "<%= @station1.name %>"}, { data: cos, label: "<%= @station2.name %>" } ], {
+           series: {
+               lines: { show: true },
+               points: { show: true }
+           },
+           grid: { hoverable: true, clickable: true },
+           yaxis: { min: -1.2, max: 1.2 }
+       });
+    </script>
+  <% end %>
+
+<% end %>
+
+
+<% content_for :js do -%>
+  <script type="text/javascript">
+    $(function(){
+      $('#date1, #date2').selectToUISlider();
+      <%= render :partial => 'shared/basic_map.js.erb' -%>
+      <% if @station1 && @station2 %>
+        <% [@station1, @station2].each do |station| -%>
+          <%- next if station.latitude_decimal.blank? || station.longitude_decimal.blank? -%>
+          maloshumos.infowindow({map: map,
+            title: "<%= station.name -%> ",
+            content: "<h2><%= station.name -%></h2>",
+            lat: <%= station.latitude_decimal -%>,
+            lng: <%= station.longitude_decimal -%>,
+            suffix: 'unlocked'
+          });
+        <% end -%>
+      <% end %>
+    });
+  </script>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/ui.slider.extras.css" media="screen" />
+  <script type="text/javascript" src="/javascripts/selectToUISlider.jQuery.js"></script>
+<% end %>
