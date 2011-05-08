@@ -9,7 +9,7 @@ class Station < ActiveRecord::Base
 
   has_slug :source_column => :name, :slug_column => :permalink, :prepend_id => false, :sync_slug => true
 
-  before_save :convert_coordinates
+  #before_save :convert_coordinates
 
 
   # El estado normalizado de una estación en un instante determinado
