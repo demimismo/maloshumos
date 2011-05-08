@@ -4,39 +4,36 @@
   <script type="text/javascript">
      $(function(){
       var map = new mxn.Mapstraction('map', 'google');
-      map.setCenterAndZoom(new mxn.LatLonPoint(40.41831, -3.70275), 14);
+      map.setCenterAndZoom(new mxn.LatLonPoint(40.41831, -3.70275), 12);
       <% @destroyed_stations.each do |station| -%>
-          var station = new mxn.LatLonPoint(<%= station.latitude_decimal -%>, <%= station.longitude_decimal -%>);
-          map.addMarkerWithData(new mxn.Marker(station),{
-            infoBubble : "<h2><%= station.name -%></h2>",
-            label : "<%= station.name -%>",
-            date : "new Date()",
-            marker : 4,
-            //iconShadow: "/images/ico-admisible.png",
-            //iconShadowSize : [45,45],
-            icon : "/images/ico-locked.png",
-            iconSize : [45,45],
-            draggable : false,
-            hover : false
-          });
+        <%- next if station.latitude_decimal.blank? || station.longitude_decimal.blank? -%>
+        maloshumos.infowindow({map: map,
+          title: "<%= station.name -%> ",
+          content: "<h2><%= station.name -%></h2>",
+          lat: <%= station.latitude_decimal -%>,
+          lng: <%= station.longitude_decimal -%>,
+          suffix: 'locked'
+        });
       <% end -%>
       <% Station.active.each do |station| -%>
-          <%- next if station.latitude_decimal.blank? || station.longitude_decimal.blank? -%>
-          var station = new mxn.LatLonPoint(<%= station.latitude_decimal -%>, <%= station.longitude_decimal -%>);
-          map.addMarkerWithData(new mxn.Marker(station),{
-            infoBubble : "<h2><%= station.name -%></h2>",
-            label : "<%= station.name -%>",
-            date : "new Date()",
-            marker : 4,
-            //iconShadow: "/images/ico-admisible.png",
-            //iconShadowSize : [45,45],
-            icon : "/images/ico-unlocked.png",
-            iconSize : [45,45],
-            draggable : false,
-            hover : false
-          });
+        <%- next if station.latitude_decimal.blank? || station.longitude_decimal.blank? -%>
+        maloshumos.infowindow({map: map,
+          title: "<%= station.name -%> ",
+          content: "<h2><%= station.name -%></h2>",
+          lat: <%= station.latitude_decimal -%>,
+          lng: <%= station.longitude_decimal -%>,
+          suffix: 'unlocked'
+        });
       <% end -%>
+      <% Station.moved.each do |station| -%>
+        var polyline = new mxn.Polyline([
+          new mxn.LatLonPoint(<%= station.latitude_decimal -%>,<%= station.longitude_decimal -%>),
+          new mxn.LatLonPoint(<%= station.previous_station.latitude_decimal -%>,<%= station.previous_station.longitude_decimal -%>)]
+        );
+        map.addPolyline(polyline);
+      <% end  %>
       map.autoCenterAndZoom();
      });
+
   </script>
 <% end -%>
