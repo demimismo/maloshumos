@@ -9,6 +9,16 @@ class Measurement < ActiveRecord::Base
     { :conditions => ["measurements.parameter = ?", parameter_code], :limit => 1, :order => 'created_at desc' }
   }
 
+  named_scope :in_key_params, lambda {
+    { :conditions => ["measurements.parameter IN (?)", @@KEY_PARAMS.map(&:code)] }
+  }
+  
+  named_scope :taken_at, lambda { |wadus|
+    { :conditions => ["DATE_FORMAT(measurements.created_at, '%Y%m%d%H') = ?", wadus.strftime('%Y%m%d%H')] }
+  }
+
+  @@KEY_PARAMS = Parameter.all :conditions => 'threshold > 0'
+
   # Lectura normalizada (aplicando un valor guía
   # del cual no hay mucho consenso, intentamos
   # guiarnos por este doc de la OMS:
