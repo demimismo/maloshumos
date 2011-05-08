@@ -317,20 +317,21 @@ body.login .content .wrapper {
 /*  home
 --------------------------------------------------------------------- */
 .station-footer {
-
+  overflow: hidden;
 }
 
 .station-footer ul.station_summary {
-
-
+  overflow: hidden;
+  width: 780px;
+  float: left;
 }
 
 .station-footer ul.station_summary li {
   float: left;
   width: 160px;
-  padding: 0 55px 0 10px;
-  background: #FFFFFF url(../images/fabric.png) no-repeat 1px bottom;
-  margin-right: 20px;    
+  padding: 0 70px 0 10px;
+  background: #FFFFFF url(../images/fabric.png) no-repeat 185px bottom;
+  margin-right: 8px;    
   border-right-style: dotted; 
 }
 
@@ -341,6 +342,7 @@ body.login .content .wrapper {
 
 .station-footer ul.station_summary p.desc {
   font-size: 14px;
+  padding: 10px 0;
 }
 
 .station-footer ul.station_summary p.value {
@@ -355,6 +357,19 @@ body.login .content .wrapper {
   color: #000000;
 }
 
+.station-footer div.do_something {
+  width: 120px;
+  float: left;
+  padding-bottom: 85px;
+  background: #FFFFFF url(../images/happy_family.png) no-repeat center bottom;  
+}
+
+.station-footer div.do_something h3 {
+  text-align: center;
+  color: #02B5CC;
+  text-decoration: underline;
+  font-size: 20px;
+}
 
 #wadus-content button {
   margin-top: 1em;
