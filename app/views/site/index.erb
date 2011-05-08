@@ -46,6 +46,11 @@
         var mapTypeControl = new GLargeMapControl();
         var bottomLeft = new GControlPosition(G_ANCHOR_BOTTOM_RIGHT, new GSize(890,20));
         map.getMap().addControl(mapTypeControl, bottomLeft);
+
+        map.click.addHandler(function() {
+          $('#home-content').hide();
+        });
+
         <% Station.active.each do |station| -%>
           <%- next if station.latitude_decimal.blank? || station.longitude_decimal.blank? -%>
           maloshumos.infowindow({map: map,

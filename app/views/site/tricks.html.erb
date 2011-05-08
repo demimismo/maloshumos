@@ -7,6 +7,9 @@
   <script type="text/javascript">
      $(function(){
       <%= render :partial => 'shared/basic_map.js.erb' -%>
+      map.click.addHandler(function() {
+        $('#wadus-content').hide();
+      });
       <% @destroyed_stations.each do |station| -%>
         <%- next if station.latitude_decimal.blank? || station.longitude_decimal.blank? -%>
         maloshumos.infowindow({map: map,
