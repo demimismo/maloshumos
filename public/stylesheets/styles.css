@@ -390,3 +390,12 @@ body.login .content .wrapper {
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FCFCFC', endColorstr='#CACACA',GradientType=0 ); /* IE6-9 */
   background: linear-gradient(top, #FCFCFC 0%,#CACACA 100%); /* W3C */
 }
+
+h3 {
+  background:#ffce09 url(../images/bg-buscador-top.png) repeat-x;
+  font-size: 22px;
+  font-weight: bold;
+  padding: 5px;
+  color: #000;
+  margin-top: -25px;
+}
