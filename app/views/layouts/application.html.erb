@@ -31,11 +31,11 @@
       
       <% unless request.path == '/' %>
       
-      <form class="buscador">
-        <label>Código postal</label>
-        <input type="text" class="text" />
-        <input type="submit" class="submit" />
-      </form>
+        <% form_tag(stations_path, :class=> 'buscador', :method => :get) do %>
+          <label>Código postal</label>
+          <%= text_field_tag 'postal_code', params[:postal_code] ? params[:postal_code] : nil, :class=> "text" %>
+          <input type="submit" class="submit" />
+        <% end %>
       
       <% end %>
       

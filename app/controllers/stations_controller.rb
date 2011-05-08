@@ -7,7 +7,7 @@ class StationsController < ApplicationController
       logger.info(pc_coordinates.lng)      
       @station = Station.find(:all, :origin => [pc_coordinates.lat, pc_coordinates.lng],
                               :within => 15, :limit => 1)
-      redirect_to station_path(@station.first.permalink)
+      redirect_to station_path(@station.first.permalink, :postal_code => params[:postal_code])
     end
   end
 

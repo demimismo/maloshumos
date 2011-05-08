@@ -9,6 +9,10 @@ body {
   color: #333;
 }
 
+li {
+  list-style: none;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -300,14 +304,54 @@ body.login .content .wrapper {
 
 
 
+/*  home
+--------------------------------------------------------------------- */
+.station-footer {
 
 
+}
+
+.station-footer ul.station_summary {
 
 
+}
+
+.station-footer ul.station_summary li {
+  float: left;
+  width: 160px;
+  padding: 0 55px 0 10px;
+  background: #FFFFFF url(../images/fabric.png) no-repeat 1px bottom;
+  margin-right: 20px;    
+  border-right-style: dotted; 
+}
+
+.station-footer ul.station_summary h3 {
+  font-size: 18px;
+  font-weight: bold;  
+}
+
+.station-footer ul.station_summary p.desc {
+  font-size: 14px;
+}
+
+.station-footer ul.station_summary p.value {
+  background:#ffce09 url(../images/bg-buscador-top.png) repeat-x;  
+  font-size: 24px;
+  font-weight: bold;
+  padding: 10px;
+  color: #FFFFFF;
+}
+
+.station-footer ul.station_summary p.value span {
+  color: #000000;
+}
 
 
+helvetica-bold 18
+14 helvetica
 
+heñvetica-bold 24
 
+helvetica-bold 20
 
-
-
+240x154

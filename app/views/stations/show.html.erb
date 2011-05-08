@@ -1,4 +1,35 @@
+<% @body_id = 'station' %>
+
 <h2><%= link_to @city.name, url_for([@city]) -%> > <%= @station.name -%></h2>
 
-<script type="text/javascript" src="<%= url_for([@city, @station, 'measurements'])+".js" -%>"></script>
+<div id="station-content">
+<p>f</p>
+</div>
 
+<div class="station-footer">
+  <ul class="station_summary">
+    <li class="last_week">
+      <div>
+        <h3>Última semana</h3>
+        <p class="desc">Se han sobrepasado los niveles de contaminación</p>
+        <p class="value"><span>2</span> veces</p>        
+      </div>
+    </li>
+    <li class="last_month">
+      <div>
+        <h3>Último mes</h3>    
+        <p class="desc">Se han sobrepasado los niveles de contaminación</p>
+        <p class="value"><span>6</span> veces</p>        
+      </div>
+    </li>
+    <li class="last_year">
+      <div>
+        <h3>Último año</h3>        
+        <p class="desc">Se han sobrepasado los niveles de contaminación</p>
+        <p class="value"><span>42</span> veces</p>        
+      </div>      
+    </li>        
+  </ul>
+</div>
+
+<script type="text/javascript" src="<%= url_for([@city, @station, 'measurements'])+".js" -%>"></script>
