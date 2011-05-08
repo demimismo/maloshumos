@@ -16,9 +16,20 @@
 <body>
 
   <div class="wrapper">
-    <div class="header">
-      <h1><a href="/">Maloshumos</a></h1>    
-    </div>  
+    
+    <div id="header">
+      <h1><a href="/">Maloshumos</a></h1>
+      
+      <ul id="nav">
+        <li class="first"><a href="#">Compara zonas</a></li>
+        <li><a href="#">Mediciones Trampa</a></li>
+        <li><a href="#">Como te afecta</a></li>
+        <li class="last"><a href="#">Haz algo!</a></li>
+      </ul>
+    </div>
+    
+    
+    
     <div class="content">
       <%= yield %>
       <div id="map" style="width:100%; height:200px;"></div>
