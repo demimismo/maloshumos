@@ -31,9 +31,17 @@
     
     
     <div class="content">
-      <%= yield %>
-      <div id="map" style="width:100%; height:200px;"></div>
-    </div> 
+      <div id="map"></div>
+      <div id="map-layer">
+        <ul id="social">
+          <li><%= link_to image_tag('ico-twitter.png'), "http://twitter.com/?u=#{request.url}" %></li>
+          <li><%= link_to image_tag('ico-facebook.png'), "http://facebook.com/share.php?u=#{request.url}" %></li>
+        </ul>
+        
+        <%= yield %>
+      </div>
+    </div>
+    
     <div class="footer">
       <script type="text/javascript" src="https://www.google.com/jsapi?key=<%= GOOGLE_LOADER_API_KEY -%>" /></script>    
       <%= yield :js -%>
