@@ -1,9 +1,15 @@
-<h2>Mediciones trampa</h2>
-
 <% content_for :js do -%>
   <script type="text/javascript">
      $(function(){
       var map = new mxn.Mapstraction('map', 'google');
+      map.getMap();
+      var mapTypeControl = new GMapTypeControl();
+      var bottomRight = new GControlPosition(G_ANCHOR_BOTTOM_RIGHT, new GSize(10,20));
+      map.getMap().addControl(mapTypeControl, bottomRight);
+      var mapTypeControl = new GLargeMapControl();
+      var bottomLeft = new GControlPosition(G_ANCHOR_BOTTOM_RIGHT, new GSize(890,20));
+      map.getMap().addControl(mapTypeControl, bottomLeft);
+
       map.setCenterAndZoom(new mxn.LatLonPoint(40.41831, -3.70275), 12);
       <% @destroyed_stations.each do |station| -%>
         <%- next if station.latitude_decimal.blank? || station.longitude_decimal.blank? -%>
