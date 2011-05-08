@@ -12,7 +12,7 @@ class SiteController < ApplicationController
 
   def tricks
     @stations = Station.moved
-    @destroyed_stations = Stations.recently_destroyed
+    @destroyed_stations = Station.recently_destroyed
   end
 
   def sluggify(text)
