@@ -56,7 +56,7 @@
         map.addPolyline(polyline);
         <% end -%>
         
-        map.autoCenterAndZoom();
+        map.setCenterAndZoom(new mxn.LatLonPoint(<%= @station.latitude_decimal -%>,<%= @station.longitude_decimal -%>), 16);
      });
   </script>
 <% end -%>
