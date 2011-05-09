@@ -5,6 +5,7 @@
 <div id="station-content">
 </div>
 
+<% content_for :outside_map do %>
 <div class="station-footer">
   <ul class="station_summary">
     <li class="last_week">
@@ -33,5 +34,32 @@
     <h3>Haz algo!</h3>
   </div>
 </div>
+<% end -%>
 
-<script type="text/javascript" src="<%= url_for([@city, @station, 'measurements'])+".js" -%>"></script>
+<% content_for :js do -%>
+  <script type="text/javascript">
+     $(function(){
+       <%= render :partial => 'shared/basic_map.js.erb' -%>
+        maloshumos.infowindow({map: map,
+          title: "<%= @station.name -%> ",
+          content: "<h2><%= @station.name -%></h2>",
+          lat: <%= @station.latitude_decimal -%>,
+          lng: <%= @station.longitude_decimal -%>,
+          suffix: 'unlocked'
+          });
+        <% unless @station.previous_station.blank? -%>
+        
+        var polyline = new mxn.Polyline([
+          new mxn.LatLonPoint(<%= @station.latitude_decimal -%>,<%= @station.longitude_decimal -%>),
+          new mxn.LatLonPoint(<%= @station.previous_station.latitude_decimal -%>,<%= @station.previous_station.longitude_decimal -%>)]
+        );
+        map.addPolyline(polyline);
+        <% end -%>
+        
+        map.autoCenterAndZoom();
+     });
+  </script>
+<% end -%>
+
+
+
