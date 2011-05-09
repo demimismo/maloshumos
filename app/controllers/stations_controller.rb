@@ -2,11 +2,11 @@ class StationsController < ApplicationController
 
   def index
     if params[:postal_code]
-      pc_coordinates = Geokit::Geocoders::GoogleGeocoder.geocode "#{params[:postal_code]} Madrid"
+      pc_coordinates = Geokit::Geocoders::GoogleGeocoder.geocode "#{params[:postal_code]}, Madrid"
       logger.info(pc_coordinates.lat)
       logger.info(pc_coordinates.lng)      
       @station = Station.active.find(:all, :origin => [pc_coordinates.lat, pc_coordinates.lng],
-                              :within => 15, :limit => 1)
+                              :within => 5, :limit => 1, :order=>'distance asc')
       redirect_to station_path(@station.first.permalink, :postal_code => params[:postal_code])
     elsif params[:date1] && params[:date2] && params[:station1] && params[:station2]
       @station1 = Station.find params[:station1]
