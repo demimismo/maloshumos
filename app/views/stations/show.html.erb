@@ -46,7 +46,7 @@
           lat: <%= @station.latitude_decimal -%>,
           lng: <%= @station.longitude_decimal -%>,
           suffix: 'unlocked'
-          });
+          }).openBubble();
         <% unless @station.previous_station.blank? -%>
         
         var polyline = new mxn.Polyline([

@@ -400,3 +400,10 @@ div#wadus-content h3 {
   color: #000;
   margin-top: -25px;
 }
+
+.gmbubble * {
+  font-size: 1.4em;
+}
+.gmbubble h2 {
+  font-weight: bold;
+}
