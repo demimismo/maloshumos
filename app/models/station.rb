@@ -10,7 +10,8 @@ class Station < ActiveRecord::Base
   has_many :measurements, :primary_key => 'code'
 
   named_scope :active, :conditions => {:destroyed_at => nil}
-  named_scope :recently_destroyed, :conditions => "DATE_FORMAT(destroyed_at, '%Y') IN (2009, 2010, 2011)"
+  named_scope :recently_destroyed, :conditions => "DATE_FORMAT(destroyed_at, '%Y') IN (2008, 2009, 2010, 2011)"
+  named_scope :recent, :conditions => ["created_at < ?", Date.parse('03/2011')]
   named_scope :moved, :conditions => ["stations.previous_station_id > 0"]
 
   has_slug :source_column => :name, :slug_column => :permalink, :prepend_id => false, :sync_slug => true

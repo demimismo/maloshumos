@@ -2,6 +2,13 @@
     <h2 class="t"><span>En los últimos años varias estaciones de Madrid han sido reubicadas en zonas menos contaminadas.</span></h2>
     <h3>No te dejes engañar</h3>
   </div>
+  
+<% content_for :outside_map do %>
+  <ul id="legend">
+    <li class="first"><%= image_tag 'ico-locked.png' %> Estaciones cerradas recientemente</li>
+    <li><%= image_tag 'ico-unlocked.png' %> Nuevas ubicaciones</li>
+  </ul>
+<% end %>
 
 <% content_for :js do -%>
   <script type="text/javascript">
@@ -20,7 +27,7 @@
           suffix: 'locked'
         });
       <% end -%>
-      <% Station.active.each do |station| -%>
+      <% @new_stations.each do |station| -%>
         <%- next if station.latitude_decimal.blank? || station.longitude_decimal.blank? -%>
         maloshumos.infowindow({map: map,
           title: "<%= station.name -%> ",
