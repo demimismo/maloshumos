@@ -1,13 +1,9 @@
 class Station < ActiveRecord::Base
-  acts_as_mappable :default_units => :kms, 
-                   :default_formula => :sphere, 
-                   :distance_field_name => :distance,
-                   :lat_column_name => :latitude_decimal,
-                   :lng_column_name => :longitude_decimal
-
   belongs_to :city
   has_one :previous_station, :class_name => 'Station', :foreign_key => 'id', :primary_key => 'previous_station_id'
   has_many :measurements, :primary_key => 'code'
+
+  reverse_geocoded_by :latitude_decimal, :longitude_decimal
 
   scope :active, :conditions => {:destroyed_at => nil}
   scope :recently_destroyed, :conditions => "DATE_FORMAT(destroyed_at, '%Y') IN (2008, 2009, 2010, 2011)"

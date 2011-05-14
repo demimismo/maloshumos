@@ -5,4 +5,5 @@ gem 'rails', '3.0.7'
 
 gem 'mysql'
 gem 'fastercsv'
-gem 'geokit'
+gem 'activeadmin'
+gem 'geocoder'
