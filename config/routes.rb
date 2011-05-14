@@ -1,5 +1,9 @@
 Maloshumos::Application.routes.draw do
-  match '/', :to => 'site#index'
+  ActiveAdmin.routes(self)
+
+  devise_for :admin_users, ActiveAdmin::Devise.config
+
+  root :to => 'site#index'
 
   match '/about', :to => 'site#about'
   match '/mediciones-trampa', :to => 'site#tricks'
