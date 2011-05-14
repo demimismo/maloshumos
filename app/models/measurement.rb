@@ -2,18 +2,18 @@ class Measurement < ActiveRecord::Base
   belongs_to :station, :primary_key => 'code'
   belongs_to :param, :class_name => 'Parameter', :primary_key => 'code', :foreign_key => 'parameter'
 
-  named_scope :for_parameter, lambda { |parameter_code|
+  scope :for_parameter, lambda { |parameter_code|
     { :conditions => ["measurements.parameter = ?", parameter_code] }
   }
-  named_scope :latest_for_parameter, lambda { |parameter_code|
+  scope :latest_for_parameter, lambda { |parameter_code|
     { :conditions => ["measurements.parameter = ?", parameter_code], :limit => 1, :order => 'created_at desc' }
   }
 
-  named_scope :in_key_params, lambda {
+  scope :in_key_params, lambda {
     { :conditions => ["measurements.parameter IN (?)", @@KEY_PARAMS.map(&:code)] }
   }
   
-  named_scope :taken_at, lambda { |wadus|
+  scope :taken_at, lambda { |wadus|
     { :conditions => ["DATE_FORMAT(measurements.created_at, '%Y%m%d%H') = ?", wadus.strftime('%Y%m%d%H')] }
   }
 

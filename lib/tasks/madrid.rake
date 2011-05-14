@@ -2,7 +2,7 @@ namespace :madrid do
 
   desc "Cargar datos de parámetros"
   task :load_parameters => %w(environment) do
-    FasterCSV.open("#{RAILS_ROOT}/data/parameters.csv").each do |row|
+    FasterCSV.open("#{Rails.root}/data/parameters.csv").each do |row|
       Parameter.create!(
        :code => row[0],
        :formulation => row[1],
@@ -13,7 +13,7 @@ namespace :madrid do
 
   desc "Cargar datos de estaciones"
   task :load_stations => %w(environment) do
-    FasterCSV.open("#{RAILS_ROOT}/data/stations.csv").each do |row|
+    FasterCSV.open("#{Rails.root}/data/stations.csv").each do |row|
       Station.create!(
        :city => City.find_or_create_by_name('Madrid'),
        :name => row[1],

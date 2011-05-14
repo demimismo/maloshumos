@@ -1,9 +1,8 @@
 # A sample Gemfile
 source "http://rubygems.org"
 
-gem 'rails', '2.3.11'
+gem 'rails', '3.0.7'
 
 gem 'mysql'
-gem 'will_paginate'
 gem 'fastercsv'
 gem 'geokit'

@@ -9,7 +9,7 @@
   <div id="wadus-content">
     <h2 class="t"><span>Compara el índice de contaminación del aire en distintas zonas de Madrid</span></h2>
 
-    <% form_tag stations_path, :method => :get do %>
+    <%= form_tag stations_path, :method => :get do %>
     <p>Compara contaminación entre:</p>
       <p><%= select_tag 'station1', options_from_collection_for_select(@comparable_stations, :id, :name) %>
       y <%= select_tag 'station2', options_from_collection_for_select(@comparable_stations, :id, :name) %></p>
