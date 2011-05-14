@@ -7,7 +7,7 @@
      
     <%= form_tag(stations_path, :class=> 'buscador', :method => :get) do %>
       <h3>Dinos cual es tu zona<br /> y sabrás lo que estás respirando</h3>
-      <%= text_field_tag 'postal_code', nil, :class=> "text", :placeholder => 'Tu código postal' %>
+      <%= text_field_tag 'postal_code', nil, :class=> "text", :placeholder => 'Tu dirección' %>
       <button type="submit">Voy a tener suerte</button>
     <% end %>
         
