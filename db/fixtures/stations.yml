@@ -1,0 +1,15 @@
+closed:
+  name: Paseo de Recoletos
+  permalink: p-recoletos
+  code: 28079001
+  destroyed_at: 2009-05-03 22:00:00
+  longitude_decimal: -3.69176
+  latitude_decimal: 40.4227
+
+opened:
+  name: Plaza del Carmen
+  permalink: pza-carmen
+  code: 28079003
+  longitude_decimal: -3.70327
+  latitude_decimal: 40.4192
+

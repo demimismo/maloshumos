@@ -1,18 +1,27 @@
 require File.expand_path(File.dirname(__FILE__) + '/acceptance_helper')
 
-feature "Searchs A Station" do
+feature "Searchs a station" do
+  fixtures :stations, :cities
 
-  scenario "a station is found" do
+  scenario "and finds it" do
     visit '/'
-  end
+  
+    within :css, '#home-content .buscador' do
+      fill_in 'postal_code', :with => 'plaza del carmen'
+    end
+ 
+    click_button 'Voy a tener suerte'
+    page.should have_content('Plaza del Carmen')
+ end
 
-  scenario "a station isn't found" do
+  scenario "and doesn't find it" do
     visit '/'
 
     within :css, '#home-content .buscador' do
-      fill_in 'postal_code', :with => 'calle salamanca 17'
+      fill_in 'postal_code', :with => 'oifjodisjfodifjoijf'
     end
     click_button 'Voy a tener suerte'
+    #page.should have_content('No hemos encontrado una estación cercana')
   end
 
 end

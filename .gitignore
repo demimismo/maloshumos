@@ -6,7 +6,6 @@ data/*
 .rvmrc
 db/schema.rb
 nbproject
-db/fixtures/*
 .bundle
 db/*.sqlite3
 

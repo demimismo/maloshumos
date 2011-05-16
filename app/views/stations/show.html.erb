@@ -1,8 +1,8 @@
 <% @body_id = 'station' %>
 
-<h2><%= link_to @city.name, url_for([@city]) -%> > <%= @station.name -%></h2>
 
 <div id="station-content">
+  <h2><%= link_to @city.name, url_for([@city]) -%> > <%= @station.name -%></h2>
 </div>
 
 <% content_for :outside_map do %>
