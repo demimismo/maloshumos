@@ -1,4 +1,4 @@
-closed:
+recoletos:
   name: Paseo de Recoletos
   permalink: p-recoletos
   code: 28079001
@@ -6,10 +6,17 @@ closed:
   longitude_decimal: -3.69176
   latitude_decimal: 40.4227
 
-opened:
+carmen:
   name: Plaza del Carmen
   permalink: pza-carmen
   code: 28079003
   longitude_decimal: -3.70327
   latitude_decimal: 40.4192
+
+mendezalvaro:
+  name: Méndez Álvaro
+  permalink: mendez-alvaro
+  code: 28079047
+  longitude_decimal: -3.68333
+  latitude_decimal: 40.3833
 
