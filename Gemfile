@@ -8,6 +8,7 @@ gem 'fastercsv'
 gem 'activeadmin'
 gem 'geocoder'
 gem 'seed-fu'
+gem 'nokogiri'
 
 group :development, :test do
   gem 'rspec-rails'

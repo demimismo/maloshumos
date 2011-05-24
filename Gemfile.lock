@@ -155,6 +155,7 @@ DEPENDENCIES
   fastercsv
   geocoder
   mysql
+  nokogiri
   rails (= 3.0.7)
   rspec-rails
   seed-fu
