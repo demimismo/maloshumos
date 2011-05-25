@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/acceptance_helper')
 feature "Searchs a station" do
   fixtures :stations, :cities
 
-  scenario "and finds it" do
+  scenario "using the form on the homepage" do
     visit '/'
   
     within :css, '#home-content .buscador' do
@@ -27,17 +27,23 @@ feature "Searchs a station" do
 
     within :css, '#station-content' do
       page.should have_content('Méndez Álvaro')
+      page.should_not have_content('Plaza del Carmen')
     end
- end
+  end
 
-  scenario "and doesn't find it" do
+
+  scenario "using the select box on the homepage" do
     visit '/'
 
-    within :css, '#home-content .buscador' do
-      fill_in 'postal_code', :with => 'wadus'
+    page.select 'Méndez Álvaro', :from => 'station_id'
+    click_button 'Ir'
+
+    within :css, '#station-content' do
+      page.should have_content('Méndez Álvaro')
+      page.should_not have_content('Plaza del Carmen')
     end
-    click_button 'Voy a tener suerte'
-    #page.should have_content('No hemos encontrado una estación cercana')
+    
   end
 
 end
+

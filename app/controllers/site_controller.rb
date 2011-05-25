@@ -1,9 +1,6 @@
 class SiteController < ApplicationController
   def index
-    if !params[:city1].blank? and !params[:city2].blank?
-      redirect_to "/#{sluggify(params[:city1])}-versus-#{sluggify(params[:city2])}"
-      return
-    end
+    @stations = Station.active
   end
 
   def about

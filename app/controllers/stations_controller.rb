@@ -5,6 +5,10 @@ class StationsController < ApplicationController
       @station = Station.active.near("#{params[:postal_code]}, Madrid", 10).first
 
       redirect_to station_path(@station.permalink, :postal_code => params[:postal_code])
+    elsif params[:station_id]
+      @station = Station.find params[:station_id]
+
+      redirect_to station_path(@station) and return
     elsif params[:date1] && params[:date2] && params[:station1] && params[:station2]
       @station1 = Station.find params[:station1]
       @station2 = Station.find params[:station2]

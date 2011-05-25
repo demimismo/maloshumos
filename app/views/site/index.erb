@@ -24,20 +24,22 @@
     <li><%= image_tag 'ico-muymalo.png' %> Muy malo</li>
     <li><%= image_tag 'ico-sindatos.png' %> Sin datos</li>
   </ul>
-<!--
-  <select id="estaciones">
-    <option>Wadus</option>
-    <option>Wadus</option>
-    <option>Wadus</option>
-    <option>Wadus</option>
-    <option>Wadus</option>
-  </select>
--->
+
+  <%= form_tag '/estaciones', :method => :get do -%>
+    <%= select_tag 'station_id', options_from_collection_for_select(@stations, :id, :name) -%>
+    <%= submit_tag 'Ir' -%>
+  <% end -%>
 <% end %>
 
 <% content_for :js do -%>
   <script type="text/javascript">
-     $(function(){
+    $(function(){
+        $('#station_id').next().hide();
+        $('#station_id').change(function() {
+          if ($(this).val() != "") {
+            jQuery(this).parent().submit();
+          } 
+        });
         var map = new mxn.Mapstraction('map', 'google');
         map.getMap();
         var mapTypeControl = new GMapTypeControl();
