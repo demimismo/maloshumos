@@ -10,7 +10,9 @@
       <%= text_field_tag 'postal_code', nil, :class=> "text", :placeholder => 'Tu dirección' %>
       <button type="submit">Voy a tener suerte</button>
     <% end %>
-        
+
+
+    <%= render @stations -%>
 </div>
 
 
@@ -40,31 +42,10 @@
             jQuery(this).parent().submit();
           } 
         });
-        var map = new mxn.Mapstraction('map', 'google');
-        map.getMap();
-        var mapTypeControl = new GMapTypeControl();
-        var bottomRight = new GControlPosition(G_ANCHOR_BOTTOM_RIGHT, new GSize(10,20));
-        map.getMap().addControl(mapTypeControl, bottomRight);
-        var mapTypeControl = new GLargeMapControl();
-        var bottomLeft = new GControlPosition(G_ANCHOR_BOTTOM_RIGHT, new GSize(890,20));
-        map.getMap().addControl(mapTypeControl, bottomLeft);
 
-        map.click.addHandler(function() {
-          $('#home-content').hide();
-        });
 
-        <% Station.active.each do |station| -%>
-          <%- next if station.latitude_decimal.blank? || station.longitude_decimal.blank? -%>
-          maloshumos.infowindow({map: map,
-            title: "<%= station.name -%> ",
-            content: "<h2><%= station.name -%></h2>",
-            lat: <%= station.latitude_decimal -%>,
-            lng: <%= station.longitude_decimal -%>,
-            suffix: 'sindatos'
-          });
-        <% end -%>
-
-        map.setCenterAndZoom(new mxn.LatLonPoint(40.41831, -3.70275), 12);
+        maloshumos.initialize();
      });
   </script>
 <% end -%>
+
