@@ -37,10 +37,12 @@
   <script type="text/javascript">
     $(function(){
 
-        $('#home-content button').after('<p>o <a href="#">consulta el estado de todas las estaciones</a>.</p>')
+        $(document.createElement('p')).text('o ').appendTo('#home-content form');
+        $(document.createElement('a')).text('consulta el estado de todas las estaciones').attr({href: '#'})
           .click(function() {
-            alert('a');
-          });
+            $('#home-content').hide();
+            return false;
+          }).appendTo('#home-content p:last');
 
         maloshumos.initialize();
      });
