@@ -5,7 +5,9 @@
 
   <h1><%= @station.name -%></h1>
   <%= render 'stations/select_form', :stations => @stations -%>
-  
+
+  <%= render @station -%>
+
   <ul class="station_summary">
     <li class="last_week">
       <div>

@@ -36,11 +36,12 @@ var maloshumos = {
   place_stations_on_map: function() {
     $('.inline_station').each(function() {
       var coords = $(this).text().match(/\((.*),\s(.*)\)/);
+      var station_status = $('p.status', this).get(0).className.match(/status\-(.*)\s*/)[1]
       var myLatLng = new google.maps.LatLng(coords[1], coords[2]);
       var marker = new google.maps.Marker({
           position: myLatLng,
           map: maloshumos.map,
-          icon: '/images/ico-sindatos.png'
+          icon: ['/images/ico-', station_status ,'.png'].join('')
       });
       var infowindow = new google.maps.InfoWindow({
         content: $(this).html()

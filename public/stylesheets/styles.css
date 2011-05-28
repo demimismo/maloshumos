@@ -272,6 +272,12 @@ body.login .content .wrapper {
   background: linear-gradient(top, #FCFCFC 0%,#CACACA 100%); /* W3C */
 }
 
+#home-content .buscador p {
+  font-size: 1.8em;
+  font-weight: bold;
+  margin-top: 1em;
+}
+
 #legend {
   float:left;
   list-style:none;
