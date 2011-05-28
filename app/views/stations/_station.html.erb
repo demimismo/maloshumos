@@ -1,14 +1,17 @@
 <div class="inline_station">
+
   <h2><%= link_to station.name, station_path(station) %></h2>
+  <p class="station-coords"><a href="http://maps.google.es?q=<%= "#{station.latitude_decimal}, #{station.longitude_decimal}" -%>">
+    (<%= "#{station.latitude_decimal}, #{station.longitude_decimal}" -%>)</a>
+  </p>
 
   <% unless station.previous_station.blank? -%>
-    <p>Antes era: <%= link_to station.previous_station.name -%></p>
+    <p>Antes era: <%= link_to station.previous_station.name, station.previous_station -%></p>
   <% end -%>
   
   <p class="status status-sindatos">
     Estado:
   </p>
 
-  <p>(<%= "#{station.latitude_decimal}, #{station.longitude_decimal}" -%>)</p>
 </div>
 
