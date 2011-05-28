@@ -1,0 +1,5 @@
+  <%= form_tag '/estaciones', :method => :get do -%>
+    <%= select_tag 'station_id', options_from_collection_for_select(stations, :id, :name) -%>
+    <%= submit_tag 'Ir' -%>
+  <% end -%>
+

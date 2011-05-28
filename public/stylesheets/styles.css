@@ -205,10 +205,8 @@ body.login .content .wrapper {
 }
 #map-layer #social li {
   float:left; display:inline;
-  margin-left:8px;
-  
+  margin-left:4px;
 }
-
 
 
 /*  home
@@ -319,6 +317,12 @@ body.login .content .wrapper {
 .station-footer {
   overflow: hidden;
   padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.station-footer h1 {
+  float: left;
+  width: 300px;
 }
 
 .station-footer ul.station_summary {

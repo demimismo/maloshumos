@@ -1,63 +1,45 @@
 <% @body_id = 'station' %>
 
-
-<div id="station-content">
-  <h2><%= link_to @city.name, url_for([@city]) -%> > <%= @station.name -%></h2>
-</div>
-
 <% content_for :outside_map do %>
 <div class="station-footer">
+
+  <h1><%= @station.name -%></h1>
+  <%= render 'stations/select_form', :stations => @stations -%>
+  
   <ul class="station_summary">
     <li class="last_week">
       <div>
         <h3>Última semana</h3>
         <p class="desc">Se han sobrepasado los niveles de contaminación</p>
-        <p class="value"><span>2</span> veces</p>        
+        <p class="value"><span>--</span> veces</p>        
       </div>
     </li>
     <li class="last_month">
       <div>
         <h3>Último mes</h3>    
         <p class="desc">Se han sobrepasado los niveles de contaminación</p>
-        <p class="value"><span>6</span> veces</p>        
+        <p class="value"><span>--</span> veces</p>        
       </div>
     </li>
     <li class="last_year">
       <div>
         <h3>Último año</h3>        
         <p class="desc">Se han sobrepasado los niveles de contaminación</p>
-        <p class="value"><span>42</span> veces</p>        
+        <p class="value"><span>--</span> veces</p>        
       </div>      
     </li>        
   </ul>
   <div class="do_something">
-    <h3>Haz algo!</h3>
+    <h3><a href="/haz-algo">Haz algo!</a></h3>
   </div>
 </div>
 <% end -%>
 
 <% content_for :js do -%>
   <script type="text/javascript">
-     $(function(){
-       <%= render :partial => 'shared/basic_map.js.erb' -%>
-        maloshumos.infowindow({map: map,
-          title: "<%= @station.name -%> ",
-          content: "<h2><%= @station.name -%></h2>",
-          lat: <%= @station.latitude_decimal -%>,
-          lng: <%= @station.longitude_decimal -%>,
-          suffix: 'unlocked'
-          }).openBubble();
-        <% unless @station.previous_station.blank? -%>
-        
-        var polyline = new mxn.Polyline([
-          new mxn.LatLonPoint(<%= @station.latitude_decimal -%>,<%= @station.longitude_decimal -%>),
-          new mxn.LatLonPoint(<%= @station.previous_station.latitude_decimal -%>,<%= @station.previous_station.longitude_decimal -%>)]
-        );
-        map.addPolyline(polyline);
-        <% end -%>
-        
-        map.setCenterAndZoom(new mxn.LatLonPoint(<%= @station.latitude_decimal -%>,<%= @station.longitude_decimal -%>), 16);
-     });
+    $(function(){
+      maloshumos.initialize();      
+    });
   </script>
 <% end -%>
 

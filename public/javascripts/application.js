@@ -2,6 +2,13 @@ var maloshumos = {
   map: undefined,
 
   initialize: function() {
+    $('#station_id').next().hide();
+    $('#station_id').change(function() {
+      if ($(this).val() != "") {
+        jQuery(this).parent().submit();
+      } 
+    });
+
     var myOptions = {
       zoom: 12,
       center: new google.maps.LatLng(40.41831, -3.70275),
@@ -29,32 +36,20 @@ var maloshumos = {
   place_stations_on_map: function() {
     $('.inline_station').each(function() {
       var coords = $(this).text().match(/\((.*),\s(.*)\)/);
-      var image = 'beachflag.png';
       var myLatLng = new google.maps.LatLng(coords[1], coords[2]);
-      var beachMarker = new google.maps.Marker({
+      var marker = new google.maps.Marker({
           position: myLatLng,
           map: maloshumos.map,
           icon: '/images/ico-sindatos.png'
       });
-
+      var infowindow = new google.maps.InfoWindow({
+        content: $(this).html()
+      });
+      google.maps.event.addListener(marker, 'click', function() {
+        infowindow.open(maloshumos.map, marker);
+      });
     });
-    $('.inline_station').hide();
-  },
-
-  infowindow: function(options) {
-    var marker = new mxn.Marker(new mxn.LatLonPoint(options.lat, options.lng));
-    options.map.addMarkerWithData(marker,{
-      infoBubble : ['<div class="gmbubble">',options.content,'</div>'].join(''),
-      label : options.title,
-      date : "new Date()",
-      marker : 4,
-      //iconShadow: "/images/ico-admisible.png",
-      //iconShadowSize : [45,45],
-      icon : ["/images/ico-", options.suffix, ".png"].join(''),
-      iconSize : [45,45],
-      draggable : false,
-      hover : false
-    });
-    return marker;
+    $('.inline_station').hide();  
   }
+
 }

@@ -2,6 +2,8 @@
 
 
 <div id="home-content">
+<% unless params[:map] -%>
+    
 
   <h2 class="t"><span>Estamos hartos de la contaminación madrileña y de datos manipulados sobre el estado de nuestro aire</span></h2>
      
@@ -11,13 +13,14 @@
       <button type="submit">Voy a tener suerte</button>
     <% end %>
 
-
-    <%= render @stations -%>
+  <% end -%>
 </div>
 
 
 
 <% content_for :outside_map do %>
+  
+  <%= render @stations -%>
 
   <ul id="legend">
     <li class="first"><%= image_tag 'ico-bueno.png' %> Bueno</li>
@@ -26,23 +29,18 @@
     <li><%= image_tag 'ico-muymalo.png' %> Muy malo</li>
     <li><%= image_tag 'ico-sindatos.png' %> Sin datos</li>
   </ul>
-
-  <%= form_tag '/estaciones', :method => :get do -%>
-    <%= select_tag 'station_id', options_from_collection_for_select(@stations, :id, :name) -%>
-    <%= submit_tag 'Ir' -%>
-  <% end -%>
+  
+  <%= render 'stations/select_form', :stations => @stations -%>
 <% end %>
 
 <% content_for :js do -%>
   <script type="text/javascript">
     $(function(){
-        $('#station_id').next().hide();
-        $('#station_id').change(function() {
-          if ($(this).val() != "") {
-            jQuery(this).parent().submit();
-          } 
-        });
 
+        $('#home-content button').after('<p>o <a href="#">consulta el estado de todas las estaciones</a>.</p>')
+          .click(function() {
+            alert('a');
+          });
 
         maloshumos.initialize();
      });

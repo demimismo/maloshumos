@@ -4,6 +4,16 @@
   </div>
   
 <% content_for :outside_map do %>
+  <h2>Estaciones abiertas recientemente:</h2>
+  <% @new_stations.each do |new_station| -%>
+    <%= render new_station, :css_class => 'new_station', :icon => 'unlocked' -%>
+  <% end -%>
+
+  <h2>Estaciones cerradas recientemente:</h2>
+  <% @closed_stations.each do |closed_station| -%>
+    <%= render closed_station -%>
+  <% end -%>
+  
   <ul id="legend">
     <li class="first"><%= image_tag 'ico-locked.png' %> Estaciones cerradas recientemente</li>
     <li><%= image_tag 'ico-unlocked.png' %> Nuevas ubicaciones</li>
@@ -12,40 +22,8 @@
 
 <% content_for :js do -%>
   <script type="text/javascript">
-     $(function(){
-      <%= render :partial => 'shared/basic_map.js.erb' -%>
-      map.click.addHandler(function() {
-        $('#wadus-content').hide();
-      });
-      <% @destroyed_stations.each do |station| -%>
-        <%- next if station.latitude_decimal.blank? || station.longitude_decimal.blank? -%>
-        maloshumos.infowindow({map: map,
-          title: "<%= station.name -%> ",
-          content: "<h2><%= station.name -%></h2>",
-          lat: <%= station.latitude_decimal -%>,
-          lng: <%= station.longitude_decimal -%>,
-          suffix: 'locked'
-        });
-      <% end -%>
-      <% @new_stations.each do |station| -%>
-        <%- next if station.latitude_decimal.blank? || station.longitude_decimal.blank? -%>
-        maloshumos.infowindow({map: map,
-          title: "<%= station.name -%> ",
-          content: "<h2><%= station.name -%></h2>",
-          lat: <%= station.latitude_decimal -%>,
-          lng: <%= station.longitude_decimal -%>,
-          suffix: 'unlocked'
-        });
-      <% end -%>
-      <% Station.moved.each do |station| -%>
-        var polyline = new mxn.Polyline([
-          new mxn.LatLonPoint(<%= station.latitude_decimal -%>,<%= station.longitude_decimal -%>),
-          new mxn.LatLonPoint(<%= station.previous_station.latitude_decimal -%>,<%= station.previous_station.longitude_decimal -%>)]
-        );
-        map.addPolyline(polyline);
-      <% end  %>
-      map.autoCenterAndZoom();
-     });
-
+    $(function(){
+      maloshumos.initialize();
+    });
   </script>
 <% end -%>

@@ -3,13 +3,8 @@ class SiteController < ApplicationController
     @stations = Station.active
   end
 
-  def about
-    
-  end
-
   def tricks
-    @stations = Station.moved
-    @destroyed_stations = Station.recently_destroyed
+    @closed_stations = Station.recently_destroyed
     @new_stations = Station.recent
   end
 

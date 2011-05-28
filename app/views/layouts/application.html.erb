@@ -22,9 +22,9 @@
       
       <ul id="nav">
         <!-- <li class="first"><a href="/estaciones">Compara zonas</a></li> -->
-        <li><a href="/mediciones-trampa">Mediciones Trampa</a></li>
+        <li class="first"><a href="/mediciones-trampa">Mediciones Trampa</a></li>
         <!--<li><a href="#">Como te afecta</a></li>-->
-        <!--<li class="last"><a href="#">Haz algo!</a></li>-->
+        <li class="last"><a href="/haz-algo">Haz algo!</a></li>
       </ul>
       
       <% unless request.path == '/' %>
@@ -60,9 +60,10 @@
     </div>
     
     <div class="footer">
-      <%= yield :js -%>
     </div>
   </div>
+
+  <%= yield :js -%>
 
   <script type="text/javascript">
 

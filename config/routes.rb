@@ -7,6 +7,7 @@ Maloshumos::Application.routes.draw do
 
   match '/about', :to => 'site#about'
   match '/mediciones-trampa', :to => 'site#tricks'
+  match '/haz-algo', :to => 'site#do_something'
 
 
   resources :cities, :path => 'ciudades' do
