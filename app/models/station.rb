@@ -1,7 +1,7 @@
 class Station < ActiveRecord::Base
   belongs_to :city
   has_one :previous_station, :class_name => 'Station', :foreign_key => 'id', :primary_key => 'previous_station_id'
-  has_many :measurements, :primary_key => 'code'
+  has_many :measurements
 
   reverse_geocoded_by :latitude_decimal, :longitude_decimal
 
@@ -16,7 +16,17 @@ class Station < ActiveRecord::Base
   # es la media de los valores de los parámetros clave
   def normalized_status(wadus = Time.now)
     data = self.measurements.in_key_params.taken_at(wadus).map(&:normalized_reading)
-    data.sum/data.size rescue nil
+    data.sum/data.size
+  end
+
+  def humanized_status(wadus = Time.now)
+    case self.normalized_status(wadus)
+      when 1 then 'bueno'
+      when 2 then 'admisible'
+      when 3 then 'malo'
+      when 4 then 'muymalo'
+      else        'sindatos'
+    end
   end
 
   def display_name

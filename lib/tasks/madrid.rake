@@ -1,37 +1,30 @@
 namespace :madrid do
 
-  desc "Download latest measurements from munimadrid website"
+  desc "Download the latest measurements from munimadrid website"
   task :update_measurements => %w(environment) do
     require 'nokogiri'
     require 'open-uri'
 
-    # You can download historial data in csv from 2001, 
-    # but to find the latest measurements you have to scrap
-    # this page. Welcome to Spain :)
+    # You can download historial data in csv from 2001, but to find the latest
+    # measurements you have to scrap this page. Welcome to Spain :)
     doc = Nokogiri::HTML(open('http://www.mambiente.munimadrid.es/opencms/opencms/calaire/consulta/Gases_y_particulas/informegaseshorarios.html?__locale=es'))
 
-    # Let's find when did they take this measurements
+    # Let's figure out when did they take this measurements
     time = doc.css('span.tabla_titulo_hora').first.content
     date = doc.css('span.tabla_titulo_fecha').first.content
 
-    measured_at = DateTime.strptime date+' '+time, '%d/%m/%Y %H:%M'
+    measured_at = DateTime.strptime(date + ' ' + time, '%d/%m/%Y %H:%M')
 
-    # Every row represents one station's measurements in
-    # 8 parameters
+    # Every row represents one station's measurements in 8 parameters
     doc.css('table.tabla_1 tr').each do |row|
       station = Station.find_by_name row.css('td')[0].content rescue nil
       next unless station
 
-      puts station.name
-
-      # Columns 1-8 is where the stuff is
+      # Stuff is between columns 1-8
       row.css('td')[1..8].each do |cell|
-        param = Parameter.find_by_formulation cell['headers']
-        next unless param
-        Measurement.create :station     => station,
-                           :parameter   => param.id,
-                           :measured_at => measured_at,
-                           :reading     => cell.content
+          station.measurements.create :parameter   => Parameter.find_by_formulation(cell['headers']),
+                                      :measured_at => measured_at,
+                                      :reading     => cell.content
       end
     end
   end
