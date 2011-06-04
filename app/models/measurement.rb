@@ -1,6 +1,6 @@
 class Measurement < ActiveRecord::Base
   belongs_to :station
-  belongs_to :param, :class_name => 'Parameter', :primary_key => 'code', :foreign_key => 'parameter'
+  belongs_to :parameter
 
   validates_presence_of :parameter, :station_id
   validate :only_one_measurement_per_station_parameter_and_hour
@@ -19,18 +19,12 @@ class Measurement < ActiveRecord::Base
     { :conditions => ["measurements.parameter = ?", parameter_code], :limit => 1, :order => 'created_at desc' }
   }
 
-  scope :in_key_params, lambda {
-    { :conditions => ["measurements.parameter IN (?)", @@KEY_PARAMS.map(&:code)] }
-  }
-  
   scope :taken_at, lambda { |wadus|
     { :conditions => ["DATE_FORMAT(measurements.created_at, '%Y%m%d%H') = ?", wadus.strftime('%Y%m%d%H')] }
   }
 
-  @@KEY_PARAMS = Parameter.key
-
   # Lectura normalizada (aplicando un valor guía del cual no hay mucho
-  # consenso.
+  # consenso).
   #
   # A falta de algo mejor usaremos la tabla de Air Quality Now:
   # http://www.airqualitynow.eu/about_indices_definition.php
@@ -38,8 +32,15 @@ class Measurement < ActiveRecord::Base
   # Estos son los valores utilizados por la comunidad de Madrid:
   # http://www.mambiente.munimadrid.es/opencms/export/sites/default/calaire/Anexos/INDICE_URBANO_HORARIO.pdf
   def normalized_reading
-    (4..1).each do |index|
-      return index if self.reading < self.parameter.send("level#{index}")
+    (1..4).each do |index|
+      if self.reading < self.parameter.send("level#{index}")
+        # We get the index by linear interpolation between the class borders
+        from = self.parameter.send("level#{index}")
+        from_low = self.parameter.send("level#{index}_low")
+        to = self.parameter.send("grid#{index}")
+        to_low = self.parameter.send("grid#{index}_low")
+        return to_low + (self.reading - from_low) * (to - to_low) / (from - from_low)
+      end
     end
     return -1
   end
