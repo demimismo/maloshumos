@@ -12,8 +12,7 @@ feature "Searchs a station" do
  
     click_button 'Voy a tener suerte'
 
-    page.should have_css('#station-content')
-    within :css, '#station-content' do
+    within :css, '.station-footer h1' do
       page.should have_content('Plaza del Carmen')
     end
 
@@ -25,9 +24,8 @@ feature "Searchs a station" do
  
     click_button 'Voy a tener suerte'
 
-    within :css, '#station-content' do
+    within :css, '.station-footer h1' do
       page.should have_content('Méndez Álvaro')
-      page.should_not have_content('Plaza del Carmen')
     end
   end
 
@@ -38,7 +36,7 @@ feature "Searchs a station" do
     page.select 'Méndez Álvaro', :from => 'station_id'
     click_button 'Ir'
 
-    within :css, '#station-content' do
+    within :css, '.station-footer h1' do
       page.should have_content('Méndez Álvaro')
       page.should_not have_content('Plaza del Carmen')
     end

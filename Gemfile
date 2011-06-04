@@ -12,7 +12,5 @@ gem 'nokogiri'
 
 group :development, :test do
   gem 'rspec-rails'
-  gem 'steak'
-  gem 'capybara'
-  #gem 'akephalos'
+  gem 'capybara', :git => 'git://github.com/jnicklas/capybara.git'
 end
