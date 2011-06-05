@@ -8,9 +8,9 @@
   <% unless station.previous_station.blank? -%>
     <p>Antes era: <%= link_to station.previous_station.name, station.previous_station -%></p>
   <% end -%>
-  
-  <p class="status status-sindatos">
-    Estado:
+  <%- status = station.humanized_status(Time.now-1.hour) -%>
+  <p class="status status-<%= status -%>">
+    Estado: <%= status -%>
   </p>
 
 </div>

@@ -17,14 +17,15 @@ namespace :madrid do
 
     # Every row represents one station's measurements in 8 parameters
     doc.css('table.tabla_1 tr').each do |row|
-      station = Station.find_by_name row.css('td')[0].content rescue nil
+      station = Station.find_by_importation_name row.css('td')[0].content rescue nil
       next unless station
-
+      
       # Stuff is between columns 1-8
       row.css('td')[1..8].each do |cell|
-          station.measurements.create :parameter   => Parameter.find_by_formulation(cell['headers']),
-                                      :measured_at => measured_at,
-                                      :reading     => cell.content
+          puts "#{Parameter.find_by_formulation(cell['headers'])} / #{measured_at} / #{cell.content} "
+          station.measurements.create! :parameter   => Parameter.find_by_formulation(cell['headers']),
+                                       :measured_at => measured_at,
+                                       :reading     => cell.content
       end
     end
   end

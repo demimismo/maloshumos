@@ -14,10 +14,7 @@ class Station < ActiveRecord::Base
 
   #  The final index is the highest value of the sub-indices for each component
   def normalized_status(wadus = Time.now)
-    self.measurements.taken_at(wadus)
-                     .for_parameter(Parameter.mandatory_city)
-                     .max_by { |m| m.normalized_reading }
-                     .normalized_reading rescue nil
+    self.measurements.taken_at(wadus).for_parameter(Parameter.mandatory_city).max_by { |m| m.normalized_reading }.normalized_reading rescue nil
   end
 
   def humanized_status(wadus = Time.now)

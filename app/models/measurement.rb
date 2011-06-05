@@ -6,10 +6,10 @@ class Measurement < ActiveRecord::Base
   validate :only_one_measurement_per_station_parameter_and_hour
 
   def only_one_measurement_per_station_parameter_and_hour
-    measurement = Measurement.where :station     => self.station, 
-                                    :parameter   => self.parameter,
-                                    :measured_at => self.measured_at
-    errors.add_to_base 'Only one measurement per station, parameter and hour is allowed' if measurement
+    measurement = Measurement.where :station_id   => self.station, 
+                                    :parameter_id => self.parameter,
+                                    :measured_at  => self.measured_at
+    errors.add(:base, 'Only one measurement per station, parameter and hour is allowed') unless measurement.blank?
   end
 
   scope :for_parameter, lambda { |parameter|
