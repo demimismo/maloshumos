@@ -12,15 +12,15 @@ class Measurement < ActiveRecord::Base
     errors.add_to_base 'Only one measurement per station, parameter and hour is allowed' if measurement
   end
 
-  scope :for_parameter, lambda { |parameter_code|
-    { :conditions => ["measurements.parameter = ?", parameter_code] }
+  scope :for_parameter, lambda { |parameter|
+    where(:parameter_id => parameter)
   }
   scope :latest_for_parameter, lambda { |parameter_code|
     { :conditions => ["measurements.parameter = ?", parameter_code], :limit => 1, :order => 'created_at desc' }
   }
 
   scope :taken_at, lambda { |wadus|
-    { :conditions => ["DATE_FORMAT(measurements.created_at, '%Y%m%d%H') = ?", wadus.strftime('%Y%m%d%H')] }
+    where(["DATE_FORMAT(measurements.measured_at, '%Y%m%d%H') = ?", wadus.strftime('%Y%m%d%H')])
   }
 
   # Lectura normalizada (aplicando un valor guía del cual no hay mucho
@@ -47,11 +47,11 @@ class Measurement < ActiveRecord::Base
 
   def humanized_reading
     case self.normalized_reading
-      when 1 then 'bueno'
-      when 2 then 'admisible'
-      when 3 then 'malo'
-      when 4 then 'muymalo'
-      else        'sindatos'
+      when 0..25    then 'bueno'
+      when 26..50   then 'admisible'
+      when 51..75   then 'malo'
+      when 75..9999 then 'muymalo'
+      else               'sindatos'
     end
   end
 end

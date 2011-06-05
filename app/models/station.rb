@@ -12,20 +12,21 @@ class Station < ActiveRecord::Base
 
   has_slug :source_column => :name, :slug_column => :permalink, :prepend_id => false, :sync_slug => true
 
-  # El estado normalizado de una estación en un instante determinado
-  # es la media de los valores de los parámetros clave
+  #  The final index is the highest value of the sub-indices for each component
   def normalized_status(wadus = Time.now)
-    data = self.measurements.in_key_params.taken_at(wadus).map(&:normalized_reading)
-    data.sum/data.size
+    self.measurements.taken_at(wadus)
+                     .for_parameter(Parameter.mandatory_city)
+                     .max_by { |m| m.normalized_reading }
+                     .normalized_reading rescue nil
   end
 
   def humanized_status(wadus = Time.now)
     case self.normalized_status(wadus)
-      when 1 then 'bueno'
-      when 2 then 'admisible'
-      when 3 then 'malo'
-      when 4 then 'muymalo'
-      else        'sindatos'
+      when 0..25    then 'bueno'
+      when 26..50   then 'admisible'
+      when 51..75   then 'malo'
+      when 75..9999 then 'muymalo'
+      else               'sindatos'
     end
   end
 
