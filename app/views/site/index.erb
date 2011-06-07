@@ -1,6 +1,5 @@
 <% @body_id = 'home' %>
 
-
 <div id="home-content">
 <% unless params[:map] -%>
     
@@ -20,7 +19,7 @@
 
 <% content_for :outside_map do %>
   
-  <%= render @stations -%>
+  <%= render @stations, :measurement_time => @measurement_time -%>
 
   <ul id="legend">
     <li class="first"><%= image_tag 'ico-bueno.png' %> Bueno</li>
@@ -30,7 +29,7 @@
     <li><%= image_tag 'ico-sindatos.png' %> Sin datos</li>
   </ul>
   
-  <%= render 'stations/select_form', :stations => @stations, :measurement_time => @measurement_time -%>
+  <%= render 'stations/select_form', :stations => @stations -%>
 <% end %>
 
 <% content_for :js do -%>
