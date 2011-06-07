@@ -1,3 +1,4 @@
+<% measurement_time ||= Time.now -%>
 <div class="inline_station">
 
   <h2><%= link_to station.name, station_path(station) %></h2>
@@ -8,7 +9,7 @@
   <% unless station.previous_station.blank? -%>
     <p>Antes era: <%= link_to station.previous_station.name, station.previous_station -%></p>
   <% end -%>
-  <%- status = station.humanized_status(Time.now-1.hour) -%>
+  <%- status = station.humanized_status(measurement_time) -%>
   <p class="status status-<%= status -%>">
     Estado: <%= status -%>
   </p>

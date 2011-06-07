@@ -30,7 +30,7 @@
     <li><%= image_tag 'ico-sindatos.png' %> Sin datos</li>
   </ul>
   
-  <%= render 'stations/select_form', :stations => @stations -%>
+  <%= render 'stations/select_form', :stations => @stations, :measurement_time => @measurement_time -%>
 <% end %>
 
 <% content_for :js do -%>

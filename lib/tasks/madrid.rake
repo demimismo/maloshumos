@@ -22,8 +22,9 @@ namespace :madrid do
       
       # Stuff is between columns 1-8
       row.css('td')[1..8].each do |cell|
-          puts "#{Parameter.find_by_formulation(cell['headers'])} / #{measured_at} / #{cell.content} "
-          station.measurements.create! :parameter   => Parameter.find_by_formulation(cell['headers']),
+          parameter = Parameter.find_by_formulation(cell['headers']);
+          puts "#{station.name.mb_chars.slice(0,15).mb_chars.ljust(15)} / #{(parameter.blank? ? '-' : parameter.formulation).ljust(4)} / #{measured_at.strftime('%Y/%m/%d %H:%M')} / #{cell.content} "
+          station.measurements.create  :parameter   => Parameter.find_by_formulation(cell['headers']),
                                        :measured_at => measured_at,
                                        :reading     => cell.content
       end

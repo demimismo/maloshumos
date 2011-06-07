@@ -1,6 +1,7 @@
 class SiteController < ApplicationController
   def index
     @stations = Station.active
+    @measurement_time = Measurement.last.measured_at rescue Time.now
   end
 
   def tricks
