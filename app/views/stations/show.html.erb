@@ -6,8 +6,31 @@
   <h1><%= @station.name -%></h1>
   <%= render 'stations/select_form', :stations => @stations -%>
 
-  <%= render @station -%>
+  <%= render @station, :measurement_time => @measurement_time -%>
+  
+  
+  <% parameters = Parameter.mandatory_city -%>
+  <% start_time = @measurement_time - 48.hours -%>
+  <table>
+    <tr>
+      <th>Hora</th>
+      <% parameters.each do |p| -%>
+        <th><%= p.formulation -%></th>
+      <% end -%>
+    </tr>
+  <% (0..23).each do |i| -%>
+    <% time_measurements = @station.measurements.taken_at(start_time+i.hours) -%>
+    <tr>
+      <td><%= (start_time + i.hours).strftime('%Y/%m/%d %H:%M') -%></td>
+      <% parameters.each do |p| -%>
+        <td><%= time_measurements.where(:parameter_id => p)[0].reading rescue '--' -%></td>
+      <% end -%>
+    </tr>
+  <% end -%>
+  </table>
+    <div id="placeholder" style="width:600px;height:300px;"></div> 
 
+  
   <ul class="station_summary">
     <li class="last_week">
       <div>
@@ -38,9 +61,20 @@
 <% end -%>
 
 <% content_for :js do -%>
+  <script type="text/javascript" src="/javascripts/jquery.flot.min.js"></script>
   <script type="text/javascript">
     $(function(){
-        maloshumos.initialize({map_labels: true});      
+      //maloshumos.initialize({map_labels: true});      
+      var data = [[],[],[]];
+      $('table tr').each(function() {
+        var measure_time = Date.parse($('td:eq(0)', this).text());
+        for(var i=1; i < 4; i++) {
+          data[i-1].push([measure_time, $('td:nth-child('+i+')', this).text()])
+        }
+      });
+      console.log(data);
+      $.plot($("#placeholder"), data, { xaxis: { mode: "time" } });
+        
     });
   </script>
 <% end -%>

@@ -22,6 +22,7 @@ class StationsController < ApplicationController
   def show
     @city = City.slugged_find 'madrid'
     @station = Station.slugged_find params[:id]
+    @measurement_time = @station.measurements.last.measured_at rescue Time.now
     @stations = Station.active
     respond_to do |format|
       format.html
