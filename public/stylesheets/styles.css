@@ -419,3 +419,40 @@ div#wadus-content h3 {
   background: #333 url(../images/bg-gmaps-label.png) repeat-x;
 }
 
+
+table.measurement_list { 
+  margin:2em 0; 
+  border-spacing: 0;
+  font-size: 1.2em;
+}
+table.measurement_list td,
+table.measurement_list th {
+  width: 6em;
+  text-align: center;
+  padding: 0.4em;
+  font-weight: bold;
+  text-shadow:0 1px 0 rgba(255,255,255,0.25);
+}
+table.measurement_list tbody th {
+  width: 12em;
+}
+table.measurement_list th { 
+  border:1px solid #ccc; 
+  border-width:0 1px 1px 0; 
+}
+
+table.measurement_list td.bueno {
+  background-color: rgb(148, 205, 124);
+  color: #354600;
+}
+table.measurement_list td.admisible {
+  background-color: #06b9d0;
+  color: #034f5a;
+}
+table.measurement_list td.malo {
+  background-color: #f8931f;
+}
+table.measurement_list td.muymalo {
+  background-color: #d4473e;
+}
+

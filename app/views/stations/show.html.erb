@@ -11,22 +11,27 @@
   
   <% parameters = Parameter.mandatory_city -%>
   <% start_time = @measurement_time - 48.hours -%>
-  <table>
+  <table class="measurement_list">
+  <thead>
     <tr>
       <th>Hora</th>
       <% parameters.each do |p| -%>
         <th><%= p.formulation -%></th>
       <% end -%>
     </tr>
+  </thead>
+  <tbody>
   <% (0..23).each do |i| -%>
     <% time_measurements = @station.measurements.taken_at(start_time+i.hours) -%>
     <tr>
-      <td><%= (start_time + i.hours).strftime('%Y/%m/%d %H:%M') -%></td>
+      <th scope="row"><%= (start_time + i.hours).strftime('%Y/%m/%d %H:%M') -%></th>
       <% parameters.each do |p| -%>
-        <td><%= time_measurements.where(:parameter_id => p)[0].reading rescue '--' -%></td>
+        <% measurement = time_measurements.where(:parameter_id => p).first -%>
+        <td class="<%= measurement.humanized_reading rescue 'sindatos' -%>"><%= measurement.normalized_reading rescue '--' -%></td>
       <% end -%>
     </tr>
   <% end -%>
+  </tbody>
   </table>
     <div id="placeholder" style="width:600px;height:300px;"></div> 
 
@@ -65,11 +70,15 @@
   <script type="text/javascript">
     $(function(){
       //maloshumos.initialize({map_labels: true});      
-      var data = [[],[],[]];
-      $('table tr').each(function() {
-        var measure_time = Date.parse($('td:eq(0)', this).text());
-        for(var i=1; i < 4; i++) {
-          data[i-1].push([measure_time, $('td:nth-child('+i+')', this).text()])
+      var data = [];
+      var headers = $('table thead th').slice(1);
+      $(headers).each(function(j) {
+        data[j] = { data: [], label: $(this).text()};
+      });
+      $('table tbody tr').each(function() {
+        var measure_time = Date.parse($('th:eq(0)', this).text());
+        for(var i=1; i <= headers.length; i++) {
+          data[i-1].data.push([measure_time, $('td:nth-child('+(i+1)+')', this).text()])
         }
       });
       console.log(data);
